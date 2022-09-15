@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	
+	<head>
+
+		<meta charset="utf-8">
+		<title>Jogo Da Velha</title>
+		<style type="text/css">
+
+			*{margin: 0; padding: 0;}
+			body{background:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQOqgP_Kr9ur1cbHoU43sc6GYNlbHXlJB4aby5sAhCuUpZRZvgT-khdCz6QVsjPGRlnCE&usqp=CAU);height: auto;text-align: center;}
+
+				#titulo{
+				color: white;
+				text-shadow: 2px 6px 7px red;
+				font-size: 50px;
+				padding: 1%;
+				font-family: "Rockwell";
+				padding-bottom: 1vw;
+				text-align: center;
+			}
+			#resetar{
+				width: 200px;
+				height: 5vw;
+				background-color: gray;
+				color: black;
+				border-radius: 1vw;
+				font-size: 100% auto;
+				margin-top: 1vw;
+				cursor: pointer;
+				margin-right: 18%;
+			}
+			#resetar:hover{background: white;color: blue;}
+
+			input{
+				width: 11vw;
+				height:11vw;
+				border-radius: 12px;
+				background-color: lightblue;
+				color: lightblue;
+				outline: none;
+				cursor: pointer;								
+			}
+			input:hover{background-color: blue;color:blue;}
+
+			#jogador{ 
+				color: white; 
+				font-size: 40px; 
+				margin-top: -4.9vw;
+				margin-left: 10%; 
+				padding-left: 6vw;
+				font-family: "Rockwell";
+				padding-right: 0.5vw;
+			}
+			.fonte{font-size: 50px;}	
+
+		</style>
+		<link rel="stylesheet" type="text/css" href="normalize.css">
+
+	</head>
+
+	<body>
+
+		<header>
+			
+			<div>
+				<p id="titulo">JOGO DA <br>VELHA</p>
+			</div>
+	
+		</header>
+
+		<main>
+
+			<div> <input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"> </div>
+			<div> <input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"> </div>
+			<div> <input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"><input type="button" value="_" class="fonte"> </div>
+
+		</main>
+		<div><input type="button" value="Jogar Novamente" id="resetar"></div><div><p id="jogador">JOGADOR</p></div>
+		
+		<script type="text/javascript">
+			const campos_jogo = document.getElementsByTagName("input");
+
+			const botao_jogarnovamente = document.getElementById("resetar");
+
+			const vez_jogador = document.getElementById("jogador");
+
+			var jogador = '_'; 
+			var vencedor = '_'; 
+			var finish;
+
+			for(var i=0; i<9;i+=1){
+				campos_jogo[i].addEventListener("click", (event) =>{
+					if ((event.target.value == "_") && (vencedor == "_")) {
+							event.target.value = jogador;
+							event.target.style.color = "black";
+
+							alternarvezjogador();
+							vencedor = vitoria ();
+					}
+				});
+			}
+
+			botao_jogarnovamente.addEventListener("click", (event) => {
+				for (var i=0; i<9; i+=1){
+					campos_jogo[i].value ="_" ;
+					campos_jogo[i].style.color = "lightblue"
+					campos_jogo[i].style.backgroundColor = "lightblue"
+
+
+				}
+				
+				vencedor = "_"
+
+				sortearprimeiroajogar();			
+			});
+
+			var sortearprimeiroajogar = function (){
+				if (Math.floor(Math.random()* 2) == 0){
+					jogador = "O";
+
+					vez_jogador.innerText=  "JOGADOR O";
+					vez_jogador.style.color="red";
+				}
+				else{
+					jogador = "X";
+
+					vez_jogador.innerText=  "JOGADOR X";
+					vez_jogador.style.color = "blue";
+				}
+			}
+			sortearprimeiroajogar();
+
+			var alternarvezjogador = function (){
+				if (jogador == "X"){
+					jogador = "O"
+					vez_jogador.innerText= "JOGADOR O"
+					vez_jogador.style.color = "red"
+				}
+				else{
+					jogador ="X"
+					vez_jogador.innerText= "JOGADOR X"
+					vez_jogador.style.color = "blue"
+				}
+			}
+			var vitoria = function (){
+				if((campos_jogo[0].value==campos_jogo[1].value)&& (campos_jogo[1].value==campos_jogo[2].value)&& campos_jogo[0].value!= "_"){
+					campos_jogo[0].style.backgroundColor = "#0F0"
+					campos_jogo[1].style.backgroundColor = "#0F0"
+					campos_jogo[2].style.backgroundColor = "#0F0"
+
+					return campos_jogo[0].value
+				}
+				else if((campos_jogo[3].value==campos_jogo[4].value)&& (campos_jogo[4].value==campos_jogo[5].value)&& campos_jogo[3].value!= "_"){
+					campos_jogo[3].style.backgroundColor = "#0F0"
+					campos_jogo[4].style.backgroundColor = "#0F0"
+					campos_jogo[5].style.backgroundColor = "#0F0"
+
+					return campos_jogo[3].value
+				}
+				else if((campos_jogo[6].value==campos_jogo[7].value)&& (campos_jogo[7].value==campos_jogo[8].value)&& campos_jogo[6].value!= "_"){
+					campos_jogo[6].style.backgroundColor = "#0F0"
+					campos_jogo[7].style.backgroundColor = "#0F0"
+					campos_jogo[8].style.backgroundColor = "#0F0"
+
+					return campos_jogo[6].value
+				}
+				else if((campos_jogo[0].value==campos_jogo[3].value)&& (campos_jogo[3].value==campos_jogo[6].value)&& campos_jogo[0].value!= "_"){
+					campos_jogo[0].style.backgroundColor = "#0F0"
+					campos_jogo[3].style.backgroundColor = "#0F0"
+					campos_jogo[6].style.backgroundColor = "#0F0"
+
+					return campos_jogo[0].value
+				}
+				else if((campos_jogo[1].value==campos_jogo[4].value)&& (campos_jogo[4].value==campos_jogo[7].value)&& campos_jogo[1].value!= "_"){
+					campos_jogo[1].style.backgroundColor = "#0F0"
+					campos_jogo[4].style.backgroundColor = "#0F0"
+					campos_jogo[7].style.backgroundColor = "#0F0"
+
+					return campos_jogo[1].value
+				}
+				else if((campos_jogo[2].value==campos_jogo[5].value)&& (campos_jogo[5].value==campos_jogo[8].value)&& campos_jogo[2].value!= "_"){
+					campos_jogo[2].style.backgroundColor = "#0F0"
+					campos_jogo[5].style.backgroundColor = "#0F0"
+					campos_jogo[8].style.backgroundColor = "#0F0"
+
+					return campos_jogo[2].value
+				}
+				else if((campos_jogo[0].value==campos_jogo[4].value)&& (campos_jogo[4].value==campos_jogo[8].value)&& campos_jogo[0].value!= "_"){
+					campos_jogo[0].style.backgroundColor = "#0F0"
+					campos_jogo[4].style.backgroundColor = "#0F0"
+					campos_jogo[8].style.backgroundColor = "#0F0"
+
+					return campos_jogo[0].value
+				}
+				else if((campos_jogo[2].value==campos_jogo[4].value)&& (campos_jogo[4].value==campos_jogo[6].value)&& campos_jogo[2].value!= "_"){
+					campos_jogo[2].style.backgroundColor = "#0F0"
+					campos_jogo[4].style.backgroundColor = "#0F0"
+					campos_jogo[6].style.backgroundColor = "#0F0"
+
+					return campos_jogo[2].value			
+				}				
+				return "_"
+			}
+		</script>
+	</body>
+</html>
+
+
